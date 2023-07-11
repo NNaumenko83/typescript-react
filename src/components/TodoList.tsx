@@ -3,21 +3,20 @@ import { IItem } from "../types/todo";
 
 interface IProps {
   todos: IItem[];
-  onRemoveTodo: (id: string) => void;
+  removeTodo: (id: string) => void;
 }
 
-const TodoList: React.FC<IProps> = (props) => {
+export const TodoList: React.FC<IProps> = (props) => {
   return (
     <ul>
-      {props.todos.map((item) => (
-        <li key={item.id}>
-          <div>{item.id}</div>
-          <div>{item.title}</div>
-          <button onClick={() => props.onRemoveTodo(item.id)}>Remove</button>
+      {props.todos.map((todo) => (
+        <li key={todo.id}>
+          <div>{todo.title}</div>
+          <button type="button" onClick={() => props.removeTodo(todo.id)}>
+            Delete todo
+          </button>
         </li>
       ))}
     </ul>
   );
 };
-
-export default TodoList;

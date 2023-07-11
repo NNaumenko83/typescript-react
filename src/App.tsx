@@ -1,30 +1,26 @@
 import React, { useState } from "react";
-import TodoList from "./components/TodoList";
-import AddTodo from "./components/AddTodo";
 import { IItem } from "./types/todo";
+import { AddTodo } from "./components/AddTodo";
+import { TodoList } from "./components/TodoList";
 
 const App: React.FC = () => {
-  const [todos, setTodos] = useState<IItem[]>([]);
+  const [todos, setTodo] = useState<IItem[]>([]);
 
-  function todoAddHandler(todo: IItem) {
-    setTodos((prevTodos) => {
-      return [
-        ...prevTodos,
-        { id: Math.random().toString(), title: todo.title },
-      ];
+  function addTodoHandler(todo: IItem) {
+    setTodo((prevTodo) => {
+      return [...prevTodo, todo];
     });
   }
 
-  function todoRemoveHandler(id: string): void {
-    setTodos((prevTodos) => {
-      return prevTodos.filter((item) => item.id !== id);
-    });
-  }
+  const removeTodoItemHandler = (id: string) => {
+    console.log(id);
+    setTodo((prevTodo) => prevTodo.filter((item) => item.id !== id));
+  };
 
   return (
-    <div className="App">
-      <AddTodo onAddTodo={todoAddHandler} />
-      <TodoList todos={todos} onRemoveTodo={todoRemoveHandler} />
+    <div>
+      <AddTodo addTodo={addTodoHandler} />
+      <TodoList todos={todos} removeTodo={removeTodoItemHandler} />
     </div>
   );
 };
